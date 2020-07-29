@@ -2,7 +2,7 @@
     "name": "cf-git/lamb",
     "description": "Laravel menu builder",
     "type": "package",
-    "license": "GNU GPLv3",
+    "license": "GNU GPL-3.0-or-later",
     "version": "0.0.9",
     "authors": [
         {
