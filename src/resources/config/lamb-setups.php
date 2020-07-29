@@ -1,9 +1,9 @@
 <?php
 /**
  * @author Shubin Sergie <is.captain.fail@gmail.com>
- * @license MIT
+ * @license GNU General Public License v3.0
  * 20.02.2020 2020
  */
 return [
-    'fontawesome-icon' => env('LAMB_FONTAWESOME_ICONS', true),
+    // TODO: Make configurations support
 ];
