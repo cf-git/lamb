@@ -2,6 +2,10 @@
 ## Laravel Menu Builder v1
 ### Intro
 
+
+### Supports
+Laravel 5.7 or higher
+
 ### Fast start
 - Add package to project with ```composer require cf-git/lamb```
 - Publish configuration folder ```./artisan vendor:publish --tag=lamb-config``` or ```./artisan vendor:publish --tag=config``` 
