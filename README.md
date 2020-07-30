@@ -138,13 +138,16 @@ class IconTransformer implements TransformerInterface
     }
 }
 ```
-then we can print in template like
+Then we can print in template like.
 ```blade
 {{-- menu.item --}}
 {{-- ... --}}
 <a href="{{ $item['href'] }}">{!! $item['icon'] !!}{{ $item['title'] }}</a>
 {{-- ... --}}
 ```
+But, before need append new Transformation class to menu configuration in 'transformers' section,
+And, don't forget to reset the cache ```./artisan config:cache```
+
 
 ### Dynamic menu filling
 Some times we needs store menu structure in database or bind to some unstable services.
