@@ -19,7 +19,7 @@ class CFServiceProvider extends ServiceProvider
     {
         $this->publishes([
             ( __DIR__ . '/resources/config/lamb') => config_path('lamb'),
-        ], 'config');
+        ], ['lamb-config', 'config']);
 
         $this->app->singleton('lamb', function (Container $app) {
             return new Lamb($app);
