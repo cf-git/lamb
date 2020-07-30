@@ -145,7 +145,8 @@ Then we can print in template like.
 <a href="{{ $item['href'] }}">{!! $item['icon'] !!}{{ $item['title'] }}</a>
 {{-- ... --}}
 ```
-But, before need append new Transformation class to menu configuration in 'transformers' section,
+But, before need append new Transformation class to menu configuration in 'transformers' section.
+
 And, don't forget to reset the cache ```./artisan config:cache```
 
 
