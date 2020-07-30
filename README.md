@@ -202,5 +202,16 @@ class AppServiceProvider extends ServiceProvider
 So if our service available, we append menu item before profile menu.
 We can use event menu to any menu with "lamb.menu" event then check menu name with ```$generator->getName();``` 
 
+### Events
+
+Events call in same order
+
+1. **lamb.menu.\_name\_.before**
+2. **lamb.menu.\_name\_**
+3. **lamb.menu**
+4. **lamb.menu.\_name\_.after**
+
+Where \_name\_ is name of menu wich you need
+
 ## Licenses
 GNU GPL v3
