@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CFGit\Lamb\Transformations;
 
 
@@ -17,7 +16,9 @@ class FontawesomeIconTransformation implements TransformationClassInterface
      */
     public function transform(&$item, Generator $generator)
     {
-        $item['fa-icon'] = isset($item['fa-icon']) ? "<i class=\"fa fa-{$item['fa-icon']}\"></i> " : "";
+        if (isset($item['fa-icon'])) {
+            $item['icon'] = "<i class=\"fa fa-{$item['fa-icon']}\"></i>";
+        }
         return $item;
     }
 }
