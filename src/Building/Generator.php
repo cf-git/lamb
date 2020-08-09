@@ -11,23 +11,23 @@ namespace CFGit\Lamb\Building;
 class Generator
 {
     protected $name = null;
-    protected $Transformations = null;
+    protected $transformations = null;
     protected $items = [];
 
     /**
      * Generator constructor.
      * @param $name
-     * @param TransformationClassInterface[] $Transformations
+     * @param TransformationClassInterface[] $transformations
      */
-    public function __construct($name, $Transformations)
+    public function __construct($name, $transformations)
     {
         $this->name = $name;
         array_map(function ($i) {
             if (!is_a($i, TransformationClassInterface::class)) {
                 throw new \ErrorException(get_class($i) . " is not " . TransformationClassInterface::class);
             }
-        }, $Transformations);
-        $this->Transformations = $Transformations;
+        }, $transformations);
+        $this->transformations = $transformations;
     }
 
     public function get()
@@ -58,8 +58,8 @@ class Generator
 
     public function transform(&$item)
     {
-        foreach ($this->Transformations as $transformer) {
-            $transformer->transform($item, $this);
+        foreach ($this->transformations as $transformation) {
+            $transformation->transform($item, $this);
         }
     }
 
@@ -72,8 +72,8 @@ class Generator
         return $this;
     }
 
-    public static function make($name, $Transformations)
+    public static function make($name, $transformation)
     {
-        return new static($name, $Transformations);
+        return new static($name, $transformation);
     }
 }
