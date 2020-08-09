@@ -9,7 +9,7 @@
 namespace CFGit\Lamb\Building;
 
 
-interface TransformerInterface
+interface TransformationClassInterface
 {
     /**
      * @param array|mixed &$item

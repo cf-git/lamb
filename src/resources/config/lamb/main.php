@@ -6,13 +6,13 @@
  * 05.02.2020 2020
  */
 
-use CFGit\Lamb\Transformers\LinkTransformer;
-use CFGit\Lamb\Transformers\SubmenuTransformer;
+use CFGit\Lamb\Transformations\LinkTransformation;
+use CFGit\Lamb\Transformations\SubmenuTransformation;
 
 return [
-    'transformers' => [
-        LinkTransformer::class,
-        SubmenuTransformer::class,
+    'transformations' => [
+        LinkTransformation::class,
+        SubmenuTransformation::class,
     ],
     'menu' => [
     ],

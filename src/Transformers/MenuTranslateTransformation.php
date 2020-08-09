@@ -1,8 +1,8 @@
 <?php
-namespace App\Partials\Lamb\Transformers;
+namespace App\Partials\Lamb\Transformations;
 
 use CFGit\Lamb\Building\Generator;
-use CFGit\Lamb\Building\TransformerInterface;
+use CFGit\Lamb\Building\TransformationClassInterface;
 use Illuminate\Support\Str;
 
 /**
@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
  * 06.08.2020 2020
  */
 
-class MenuTranslateTransformer implements TransformerInterface
+class MenuTranslateTransformation implements TransformationClassInterface
 {
 
     /**

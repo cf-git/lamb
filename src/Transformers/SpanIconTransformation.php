@@ -4,12 +4,12 @@
  * @license GNU General Public License v3.0
  * 20.02.2020 2020
  */
-namespace CFGit\Lamb\Transformers;
+namespace CFGit\Lamb\Transformations;
 
 use CFGit\Lamb\Building\Generator;
-use CFGit\Lamb\Building\TransformerInterface;
+use CFGit\Lamb\Building\TransformationClassInterface;
 
-class SpanIconTransformer implements TransformerInterface
+class SpanIconTransformation implements TransformationClassInterface
 {
 
     /**

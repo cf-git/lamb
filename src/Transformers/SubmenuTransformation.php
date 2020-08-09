@@ -5,13 +5,13 @@
  * 20.02.2020 2020
  */
 
-namespace CFGit\Lamb\Transformers;
+namespace CFGit\Lamb\Transformations;
 
 
 use CFGit\Lamb\Building\Generator;
-use CFGit\Lamb\Building\TransformerInterface;
+use CFGit\Lamb\Building\TransformationClassInterface;
 
-class SubmenuTransformer implements TransformerInterface
+class SubmenuTransformation implements TransformationClassInterface
 {
 
     /**

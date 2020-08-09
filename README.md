@@ -47,12 +47,12 @@ For example, we can make profile menu for user with custom menu parameters
 ```php
 <?php
 // config/lamb/profile.php
-use CFGit\Lamb\Transformers\LinkTransformer;
-use CFGit\Lamb\Transformers\SubmenuTransformer;
+use CFGit\Lamb\Transformations\LinkTransformation;
+use CFGit\Lamb\Transformations\SubmenuTransformation;
 return [
-    'transformers' => [
-        LinkTransformer::class,
-        SubmenuTransformer::class,
+    'transformations' => [
+        LinkTransformation::class,
+        SubmenuTransformation::class,
         // ... you can append Transformer of menu
     ],
     'menu' => [
@@ -125,9 +125,9 @@ namespace App\MenuItemTransformations;
 
 
 use CFGit\Lamb\Building\Generator;
-use CFGit\Lamb\Building\TransformerInterface;
+use CFGit\Lamb\Building\TransformationClassInterface;
 
-class IconTransformer implements TransformerInterface
+class IconTransformation implements TransformationClassInterface
 {
 
     /**
@@ -149,7 +149,7 @@ Then we can print in template like.
 <a href="{{ $item['href'] }}">{!! $item['icon'] !!}{{ $item['title'] }}</a>
 {{-- ... --}}
 ```
-But, before need append new Transformation class to menu configuration in 'transformers' section.
+But, before need append new Transformation class to menu configuration in 'transformations' section.
 
 And, don't forget to reset the cache ```./artisan config:cache```
 

@@ -8,29 +8,26 @@
 
 namespace CFGit\Lamb\Building;
 
-/**
- * TODO: Split Tramsformer methods to preFilters, Transforms and postFilters
- */
 class Generator
 {
     protected $name = null;
-    protected $transformers = null;
+    protected $Transformations = null;
     protected $items = [];
 
     /**
      * Generator constructor.
      * @param $name
-     * @param TransformerInterface[] $transformers
+     * @param TransformationClassInterface[] $Transformations
      */
-    public function __construct($name, $transformers)
+    public function __construct($name, $Transformations)
     {
         $this->name = $name;
         array_map(function ($i) {
-            if (!is_a($i, TransformerInterface::class)) {
-                throw new \ErrorException(get_class($i) . " is not " . TransformerInterface::class);
+            if (!is_a($i, TransformationClassInterface::class)) {
+                throw new \ErrorException(get_class($i) . " is not " . TransformationClassInterface::class);
             }
-        }, $transformers);
-        $this->transformers = $transformers;
+        }, $Transformations);
+        $this->Transformations = $Transformations;
     }
 
     public function get()
@@ -61,7 +58,7 @@ class Generator
 
     public function transform(&$item)
     {
-        foreach ($this->transformers as $transformer) {
+        foreach ($this->Transformations as $transformer) {
             $transformer->transform($item, $this);
         }
     }
@@ -75,8 +72,8 @@ class Generator
         return $this;
     }
 
-    public static function make($name, $transformers)
+    public static function make($name, $Transformations)
     {
-        return new static($name, $transformers);
+        return new static($name, $Transformations);
     }
 }
