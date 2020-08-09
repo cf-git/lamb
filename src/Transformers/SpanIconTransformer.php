@@ -9,7 +9,7 @@ namespace CFGit\Lamb\Transformers;
 use CFGit\Lamb\Building\Generator;
 use CFGit\Lamb\Building\TransformerInterface;
 
-class IconTransformer implements TransformerInterface
+class SpanIconTransformer implements TransformerInterface
 {
 
     /**

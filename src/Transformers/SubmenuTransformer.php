@@ -21,22 +21,20 @@ class SubmenuTransformer implements TransformerInterface
      */
     public function transform(&$item, Generator $generator)
     {
-        if (!isset($item['header'])) {
-            if (!isset($item['submenu']) && isset($item['children'])) {
-                $item['submenu'] = $item['children'];
-            }
-            if (!isset($item['submenu']) && isset($item['childs'])) {
-                $item['submenu'] = $item['childs'];
-            }
-            if (isset($item['submenu'])) {
-                if (empty($item['submenu'])) {
-                    unset($item['submenu']);
-                    $item['has_childs'] = false;
-                } else {
-                    $item['has_childs'] = true;
-                    foreach ($item['submenu'] as &$child) {
-                        $generator->transform($child);
-                    }
+        $item['has_childs'] = false;
+        if (!isset($item['submenu']) && isset($item['children'])) {
+            $item['submenu'] = $item['children'];
+        }
+        if (!isset($item['submenu']) && isset($item['childs'])) {
+            $item['submenu'] = $item['childs'];
+        }
+        if (isset($item['submenu'])) {
+            if (empty($item['submenu'])) {
+                unset($item['submenu']);
+            } else {
+                $item['has_childs'] = true;
+                foreach ($item['submenu'] as &$child) {
+                    $generator->transform($child);
                 }
             }
         }
