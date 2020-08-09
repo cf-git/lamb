@@ -19,7 +19,7 @@ class SpanIconTransformation implements TransformationClassInterface
      */
     public function transform(&$item, Generator $generator)
     {
-        $item['icon'] = isset($item['icon']) ? "<span class=\"icon icon-{$item['icon']}\"></span> " : "";
+        $item['span-icon'] = isset($item['span-icon']) ? "<span class=\"icon icon-{$item['span-icon']}\"></span> " : "";
         return $item;
     }
 }

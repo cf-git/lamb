@@ -17,7 +17,7 @@ class FontawesomeIconTransformation implements TransformationClassInterface
      */
     public function transform(&$item, Generator $generator)
     {
-        $item['icon'] = isset($item['icon']) ? "<i class=\"fa fa-{$item['icon']}\"></i> " : "";
+        $item['fa-icon'] = isset($item['fa-icon']) ? "<i class=\"fa fa-{$item['fa-icon']}\"></i> " : "";
         return $item;
     }
 }

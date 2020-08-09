@@ -7,12 +7,18 @@
  */
 
 use CFGit\Lamb\Transformations\LinkTransformation;
+use CFGit\Lamb\Transformations\SpanIconTransformation;
 use CFGit\Lamb\Transformations\SubmenuTransformation;
+use CFGit\Lamb\Transformations\MenuTranslateTransformation;
+use CFGit\Lamb\Transformations\FontawesomeIconTransformation;
 
 return [
     'transformations' => [
         LinkTransformation::class,
         SubmenuTransformation::class,
+        SpanIconTransformation::class,
+        MenuTranslateTransformation::class,
+        FontawesomeIconTransformation::class,
     ],
     'menu' => [
     ],

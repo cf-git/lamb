@@ -1,5 +1,5 @@
 <?php
-namespace App\Partials\Lamb\Transformations;
+namespace CFGit\Lamb\Transformations;
 
 use CFGit\Lamb\Building\Generator;
 use CFGit\Lamb\Building\TransformationClassInterface;
