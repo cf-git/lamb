@@ -26,7 +26,10 @@ class LinkTransformer implements TransformerInterface
 
         if (!isset($item['type']) || $item['type'] === 'link') {
             if (isset($item['route'])) {
-                $item['url'] = route($item['route']);
+                if (!isset($item['route_args'])) {
+                    $item['route_args'] = [];
+                }
+                $item['url'] = route($item['route'], $item['route_args']);
                 return $item;
             }
             if (isset($item['href'])) {
