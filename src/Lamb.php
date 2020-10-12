@@ -52,7 +52,7 @@ class Lamb
         if (!isset($this->store[$menu])) {
             $generator = Generator::make(
                 $menu,
-                array_map([$this->app, 'make'], $this->config->get("{$menu}.transformations"))
+                array_map([$this->app, 'make'], $this->config->get("{$menu}.transformations", []))
             );
             $this->trigger("lamb.menu.{$name}.before", $generator);
 
