@@ -56,7 +56,7 @@ class Lamb
             );
             $this->trigger("lamb.menu.{$name}.before", $generator);
 
-            $generator->append($this->config->get("{$menu}.menu"));
+            $generator->append($this->config->get("{$menu}.menu", []));
 
             $this->trigger("lamb.menu.{$name}", $generator);
 
