@@ -61,7 +61,9 @@ class Menu
 
     public function submenu($item)
     {
+        $item->has_childs = false;
         if ($item->submenu) {
+            $item->has_childs = true;
             $item->submenu = (new Menu($this->getName().".submenu"))
                 ->append($item->submenu)
                 ->addHandlers($this->handlers)
