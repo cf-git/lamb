@@ -124,7 +124,7 @@ For example we can make Transformation for icons of profile menu
 namespace App\MenuItemTransformations;
 
 
-use CFGit\Lamb\Building\Generator;
+use CFGit\Lamb\Building\Menu;
 use CFGit\Lamb\Building\TransformationClassInterface;
 
 class IconTransformation implements TransformationClassInterface
@@ -132,10 +132,10 @@ class IconTransformation implements TransformationClassInterface
 
     /**
      * @param array|mixed &$item
-     * @param Generator $generator
+     * @param Menu $generator
      * @return array|mixed|bool
      */
-    public function transform(&$item, Generator $generator)
+    public function transform(&$item, Menu $generator)
     {
         $item['icon'] = isset($item['icon']) ? "<span class=\"icon icon-{$item['icon']}\"></span> " : ""; 
         return $item;
@@ -161,7 +161,7 @@ We can build menu dynamically at call moment. For this we can use AppServiceProv
 <?php
 namespace App\Providers;
 
-use CFGit\Lamb\Building\Generator;
+use CFGit\Lamb\Building\Menu;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 
@@ -176,7 +176,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Dispatcher $events)
     {
-        $events->listen("lamb.menu.profile.before", function (Generator $generator) {
+        $events->listen("lamb.menu.profile.before", function (Menu $generator) {
             $headers = get_headers('http://localhost/api/status');
             if (strpos($headers[0], '200') === false) return;
             $generator->append([

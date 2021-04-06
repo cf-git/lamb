@@ -9,6 +9,8 @@
 namespace CFGit\Lamb;
 
 
+use CFGit\Lamb\Building\MenuItem;
+use CFGit\Lamb\Contracts\MenuItemContract;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
@@ -21,8 +23,10 @@ class CFServiceProvider extends ServiceProvider
             ( __DIR__ . '/resources/config/lamb') => config_path('lamb'),
         ], ['lamb-config', 'config']);
 
+        $this->app->bind(MenuItemContract::class, MenuItem::class);
+
         $this->app->singleton('lamb', function (Container $app) {
-            return new Lamb($app);
+            return new Lamb($app, $app->get('config'), $app->get('events'));
         });
         parent::register();
     }
