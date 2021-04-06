@@ -9,37 +9,48 @@
 namespace CFGit\Lamb;
 
 
-use CFGit\Lamb\Building\Generator;
+use CFGit\Lamb\Building\Menu;
+use \Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Pipeline\Pipeline;
 
 /**
  * Class Lamb
  * @package CFGit\Lamb
  *
  * @property Container app
+ * @property Dispatcher events
  * @property Repository config
- * @property Generator[] store
+ * @property Menu[] store
  */
 class Lamb
 {
     protected $app;
     protected $config;
+    protected $events;
     protected $store = [];
 
-    public function __construct(Container $app)
+    /**
+     * Lamb constructor.
+     * @param Container $app
+     * @param Repository $config
+     * @param Dispatcher $events
+     */
+    public function __construct(Container $app, Repository $config, Dispatcher $events)
     {
         $this->app = $app;
-        $this->config = $app['config'];
+        $this->events = $events;
+        $this->config = $config;
     }
 
-    protected function trigger($event, Generator $generator)
+    protected function trigger($event, ...$payload)
     {
         $dispatch = "fire";
         if (method_exists($this->app->get('events'), "dispatch")) {
             $dispatch = "dispatch";
         }
-        $this->app->get('events')->{$dispatch}($event, $generator);
+        $this->app->get('events')->{$dispatch}($event, $payload);
     }
 
     /**
@@ -48,23 +59,22 @@ class Lamb
      */
     public function menu($name = "main")
     {
-        $menu = "lamb.{$name}";
-        if (!isset($this->store[$menu])) {
-            $generator = Generator::make(
-                $menu,
-                array_map([$this->app, 'make'], $this->config->get("{$menu}.transformations", []))
-            );
-            $this->trigger("lamb.menu.{$name}.before", $generator);
+        $name = "lamb.{$name}";
+        if (!isset($this->store[$name])) {
+            $menu = Menu::make($name);
+            $this->trigger("lamb.menu.{$name}.before", $menu);
 
-            $generator->append($this->config->get("{$menu}.menu", []));
+            $menu->addHandler([$this, '']);
 
-            $this->trigger("lamb.menu.{$name}", $generator);
+            $this->trigger("lamb.menu.{$name}", $menu);
 
-            $this->trigger("lamb.menu", $generator);
+            $menu->append($this->config->get("{$menu}.menu", []));
 
-            $this->trigger("lamb.menu.{$name}.after", $generator);
-            $this->store[$menu] = $generator;
+            $this->trigger("lamb.menu", $menu);
+
+            $this->trigger("lamb.menu.{$name}.after", $menu);
+            $this->store[$name] = $menu;
         }
-        return $this->store[$menu]->get();
+        return $this->store[$name]->get();
     }
 }
