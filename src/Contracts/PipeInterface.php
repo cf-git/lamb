@@ -11,5 +11,5 @@ interface PipeInterface
      * @param \Closure $next
      * @return mixed
      */
-    public function handler(MenuItemContract $item, \Closure $next);
+    public function handle(MenuItemContract $item, \Closure $next);
 }

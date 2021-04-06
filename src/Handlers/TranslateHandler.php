@@ -10,10 +10,10 @@ use CFGit\Lamb\Contracts\PipeInterface;
 class TranslateHandler implements PipeInterface
 {
 
-    public function handler(MenuItemContract $item, \Closure $next)
+    public function handle(MenuItemContract $item, \Closure $next)
     {
         foreach (['title', 'text', 'label'] as $key) {
-            if (isset($item->{$key})) {
+            if (!is_null($item->{$key})) {
                 if (is_array($item->{$key})) {
                     $item->{$key} = call_user_func_array('trans', $item->{$key});
                 } else {

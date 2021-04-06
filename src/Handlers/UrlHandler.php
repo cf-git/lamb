@@ -10,13 +10,13 @@ use CFGit\Lamb\Contracts\PipeInterface;
 class UrlHandler implements PipeInterface
 {
 
-    public function handler(MenuItemContract $item, \Closure $next)
+    public function handle(MenuItemContract $item, \Closure $next)
     {
-        if (isset($item->href)) {
+        if (!is_null($item->href)) {
             $item->url = $item->href;
         }
-        if (isset($item->route)) {
-            $item->url = call_user_func(
+        if (!is_null($item->route)) {
+            $item->url = call_user_func_array(
                 'route',
                 is_array($item->route) ? $item->route : [$item->route]
             );

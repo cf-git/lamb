@@ -70,7 +70,7 @@ class Lamb
 
             $this->trigger("lamb.menu.{$name}", $menu);
 
-            $menu->append($this->config->get("{$menu}.menu", []));
+            $menu->append($this->config->get("{$name}.menu", []));
 
             $this->trigger("lamb.menu", $menu);
 

@@ -23,7 +23,7 @@ class CFServiceProvider extends ServiceProvider
             ( __DIR__ . '/resources/config/lamb') => config_path('lamb'),
         ], ['lamb-config', 'config']);
 
-        $this->app->bind(MenuItemContract::class, function (array$item = [], array $handlers = []) {
+        $this->app->bind(MenuItemContract::class, function (Container $app, array $item = [], array $handlers = []) {
             return new MenuItem($item);
         });
 

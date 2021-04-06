@@ -27,6 +27,7 @@ class Menu
     {
         $this->name = $name;
         $this->pipeline = new Pipeline(app());
+        $this->pipeline;
     }
 
     public function get()
@@ -60,7 +61,12 @@ class Menu
 
     public function submenu($item)
     {
-        $item->submenu = (new Menu($item->submenu))->addHandlers($this->handlers);
+        if ($item->submenu) {
+            $item->submenu = (new Menu($this->getName().".submenu"))
+                ->append($item->submenu)
+                ->addHandlers($this->handlers)
+                ->get();
+        }
         return $item;
     }
 
@@ -70,6 +76,7 @@ class Menu
         return $this->pipeline
             ->through($this->handlers)
             ->send(app()->make(MenuItemContract::class, $item))
+            ->via('handle')
             ->thenReturn();
     }
 
@@ -83,7 +90,7 @@ class Menu
         return $this;
     }
 
-    public function addHandler(callable $callback) {
+    public function addHandler($callback) {
         $this->handlers[] = $callback;
         return $this;
     }
