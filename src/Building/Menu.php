@@ -8,6 +8,7 @@
 
 namespace CFGit\Lamb\Building;
 
+use CFGit\Lamb\Contracts\MenuItemContract;
 use Illuminate\Pipeline\Pipeline;
 
 class Menu
@@ -57,14 +58,19 @@ class Menu
         $this->items[] = $item;
     }
 
-    public function transform($item)
+    public function submenu($item)
     {
+        $item->submenu = (new Menu($item->submenu))->addHandlers($this->handlers);
+        return $item;
+    }
+
+    public function transform(array $item)
+    {
+        $this->handlers[] = [$this, 'submenu'];
         return $this->pipeline
             ->through($this->handlers)
-            ->send($item)
-            ->then(function ($item) {
-                return app()->makeWith(\CFGit\Lamb\Contracts\MenuItemContract::class, $item);
-            });
+            ->send(app()->make(MenuItemContract::class, $item))
+            ->thenReturn();
     }
 
     public static function make($name)
@@ -72,7 +78,13 @@ class Menu
         return new static($name);
     }
 
+    public function addHandlers(array $callbacks) {
+        array_map([$this, 'addHandler'], $callbacks);
+        return $this;
+    }
+
     public function addHandler(callable $callback) {
         $this->handlers[] = $callback;
+        return $this;
     }
 }

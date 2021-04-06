@@ -23,12 +23,13 @@ class CFServiceProvider extends ServiceProvider
             ( __DIR__ . '/resources/config/lamb') => config_path('lamb'),
         ], ['lamb-config', 'config']);
 
-        $this->app->bind(MenuItemContract::class, MenuItem::class);
+        $this->app->bind(MenuItemContract::class, function (array$item = [], array $handlers = []) {
+            return new MenuItem($item);
+        });
 
         $this->app->singleton('lamb', function (Container $app) {
             return new Lamb($app, $app->get('config'), $app->get('events'));
         });
-        parent::register();
     }
 
     public function boot(Factory $view)

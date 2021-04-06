@@ -10,6 +10,8 @@ namespace CFGit\Lamb;
 
 
 use CFGit\Lamb\Building\Menu;
+use CFGit\Lamb\Handlers\TranslateHandler;
+use CFGit\Lamb\Handlers\UrlHandler;
 use \Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
@@ -64,7 +66,7 @@ class Lamb
             $menu = Menu::make($name);
             $this->trigger("lamb.menu.{$name}.before", $menu);
 
-            $menu->addHandler([$this, '']);
+            $this->injectHandlers($menu);
 
             $this->trigger("lamb.menu.{$name}", $menu);
 
@@ -75,6 +77,17 @@ class Lamb
             $this->trigger("lamb.menu.{$name}.after", $menu);
             $this->store[$name] = $menu;
         }
+        $this->app->bind($name, function() use ($menu) {
+            return $menu;
+        });
         return $this->store[$name]->get();
+    }
+
+    public function injectHandlers(Menu $menu)
+    {
+        $menu->addHandlers([
+            UrlHandler::class,
+            TranslateHandler::class,
+        ]);
     }
 }
