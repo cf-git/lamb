@@ -61,8 +61,8 @@ class Lamb
      */
     public function menu($name = "main")
     {
-        $name = "lamb.{$name}";
-        if (!isset($this->store[$name])) {
+        $storeKey = "lamb.{$name}";
+        if (!isset($this->store[$storeKey])) {
             $menu = Menu::make($name);
             $this->trigger("lamb.menu.{$name}.before", $menu);
 
@@ -75,12 +75,12 @@ class Lamb
             $this->trigger("lamb.menu", $menu);
 
             $this->trigger("lamb.menu.{$name}.after", $menu);
-            $this->store[$name] = $menu;
+            $this->store[$storeKey] = $menu;
         }
         $this->app->bind($name, function() use ($menu) {
             return $menu;
         });
-        return $this->store[$name]->get();
+        return $this->store[$storeKey]->get();
     }
 
     public function injectHandlers(Menu $menu)
