@@ -33,7 +33,7 @@ class Menu
     public function get()
     {
         if (is_null($this->menu)) {
-            $this->menu = array_map([$this, 'transform'], $this->items);
+            $this->menu = array_filter(array_map([$this, 'transform'], $this->items));
         }
         return $this->menu;
     }
